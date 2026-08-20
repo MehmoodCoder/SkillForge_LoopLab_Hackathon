@@ -13,7 +13,7 @@
     "url": "git+https://github.com/MehmoodCoder/SkillForge_LoopLab_Hackathon.git"
   },
   "keywords": [],
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/MehmoodCoder/SkillForge_LoopLab_Hackathon/issues"
   },
