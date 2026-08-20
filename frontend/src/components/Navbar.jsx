@@ -41,7 +41,7 @@ export default function Navbar({ user, setUser }) {
         to="/" 
         className="flex items-center gap-2 group transition-all duration-200"
       >
-        <span className="text-xl sm:text-2xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent group-hover:opacity-90">
+        <span className="text-xl sm:text-2xl font-extrabold tracking-tight bg-white group-hover:opacity-90">
           SkillForge
         </span>
         <span className="text-lg sm:text-xl transform group-hover:scale-110 group-hover:rotate-12 transition duration-200">
