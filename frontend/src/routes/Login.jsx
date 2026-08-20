@@ -12,7 +12,7 @@ export default function Login({ setUser }) {
     try {
       const res = await API.post('/auth/login', formData);
       setUser(res.data.user);
-      navigate('/students');
+      navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
     }
