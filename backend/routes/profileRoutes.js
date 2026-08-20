@@ -9,17 +9,15 @@ import { authenticate, authorizeRoles } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Specific routes pehle aane chahiye (IMPORTANT FIX!)
 router.get(
   '/students',
   authenticate,
-  authorizeRoles('Mentor', 'Admin'), // Sirf Mentor aur Admin dekh sakte hain
+  authorizeRoles('Mentor', 'Admin'),
   getAllStudents
 );
 
-// Dynamic routes baad me
 router.get('/:id', authenticate, getProfileById);
 router.put('/:id', authenticate, updateProfileById);
-router.delete('/:id', authenticate, authorizeRoles('Admin'), deleteProfileById);
+router.delete('/:id', authenticate, deleteProfileById);
 
 export default router;
