@@ -1,124 +1,83 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import API from "../api/axios";
+import { useState, useEffect } from 'react';
+import API from '../api/axios.js';
 
 export default function Home({ user }) {
+    console.log("Home.jsx user:", user);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const userId = user?.id || user?._id;
+
   useEffect(() => {
-    if (!user) return;
-    const fetchUserProfile = async () => {
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+    console.log("asdfghjkl", userId);
+    
+
+    const fetchHomeProfile = async () => {
       try {
-        const res = await API.get(`/profile/${user.id}`);
+        const res = await API.get(`/profile/${userId}`);
         setProfile(res.data);
       } catch (err) {
-        console.error("Home profile error:", err);
+        console.error('Home profile error:', err);
       } finally {
         setLoading(false);
       }
     };
-    fetchUserProfile();
-  }, [user]);
 
-  if (!user) {
+    fetchHomeProfile();
+  }, [userId]);
+
+  if (loading) {
     return (
-      <div className="text-center mt-20 max-w-xl mx-auto space-y-4">
-        <h1 className="text-4xl font-extrabold text-white">
-          Welcome to SkillForge
-        </h1>
-        <p className="text-slate-400">
-          Connect with mentors, display your tech stack, and manage developer
-          profiles.
-        </p>
-        <div className="pt-4 flex justify-center gap-4">
-          <Link
-            to="/login"
-            className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-xl font-medium transition"
-          >
-            Get Started
-          </Link>
-        </div>
+      <div className="flex justify-center items-center py-12 text-slate-400 text-xs">
+        Loading Home...
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Banner Card */}
-      <div className="bg-gradient-to-r from-indigo-900/50 to-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl flex justify-between items-center">
-        <div>
-          <span className="px-3 py-1 bg-indigo-500/20 text-indigo-300 text-xs rounded-full uppercase font-bold tracking-wider">
-            {user.role} Dashboard
-          </span>
-          <h1 className="text-3xl font-extrabold text-white mt-2">
-            Welcome Back, {user.name}!
-          </h1>
-          <p className="text-slate-400 text-sm mt-1">{user.email}</p>
-        </div>
-        <Link
-          to="/profile"
-          className="bg-indigo-600 hover:bg-indigo-500 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition shadow-lg"
-        >
-          Manage Profile
-        </Link>
+    <div className="space-y-6">
+      <div className="bg-slate-800 p-6 rounded-xl border border-slate-700">
+        <h1 className="text-2xl font-bold text-white">
+          Welcome Back, {user ? user.name : 'Guest'}!
+        </h1>
+        <p className="text-slate-400 text-sm mt-1">
+          {user ? `Role: ${user.role}` : 'Please log in to manage your profile.'}
+        </p>
       </div>
 
-      {/* User Dynamic Backend Details */}
-      {loading ? (
-        <div className="text-slate-400 text-center py-8">
-          Loading profile details...
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Stats & Info */}
-          <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md space-y-4">
-            <h3 className="text-lg font-bold text-white border-b border-slate-700 pb-2">
-              Overview
-            </h3>
+      {/* Database Saved Data Display */}
+      {user && profile && (
+        <div className="bg-slate-800/60 p-6 rounded-xl border border-slate-700/80 space-y-4">
+          <h3 className="text-sm font-semibold text-indigo-400 uppercase tracking-wider">
+            Your MongoDB Profile Overview
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300">
             <div>
-              <p className="text-xs text-slate-400 uppercase">Education</p>
-              <p className="text-slate-200 font-medium">
-                {profile?.education || "Not Specified"}
-              </p>
+              <span className="text-slate-500 font-medium block">Education:</span>
+              <p className="text-slate-200 mt-0.5">{profile.education || 'Not provided'}</p>
             </div>
             <div>
-              <p className="text-xs text-slate-400 uppercase">
-                Experience Level
-              </p>
-              <span className="inline-block mt-1 px-3 py-1 bg-slate-900 border border-slate-700 text-indigo-400 text-xs rounded-lg font-semibold">
-                {profile?.experienceLevel || "Beginner"}
-              </span>
+              <span className="text-slate-500 font-medium block">Experience Level:</span>
+              <p className="text-slate-200 mt-0.5">{profile.experienceLevel || 'Beginner'}</p>
             </div>
-            <div>
-              <p className="text-xs text-slate-400 uppercase">Career Goal</p>
-              <p className="text-slate-200 font-medium">
-                {profile?.careerGoal || "Not Specified"}
-              </p>
-            </div>
-          </div>
-
-          {/* Skills Display */}
-          <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-md space-y-4">
-            <h3 className="text-lg font-bold text-white border-b border-slate-700 pb-2">
-              Your Skills
-            </h3>
-            {profile?.skills && profile.skills.length > 0 ? (
-              <div className="flex flex-wrap gap-2">
-                {profile.skills.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs px-3 py-1.5 rounded-lg font-medium"
-                  >
-                    {skill}
-                  </span>
-                ))}
+            <div className="md:col-span-2">
+              <span className="text-slate-500 font-medium block mb-1">Skills:</span>
+              <div className="flex flex-wrap gap-1.5">
+                {profile.skills && profile.skills.length > 0 ? (
+                  profile.skills.map((s, i) => (
+                    <span key={i} className="bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 px-2.5 py-1 rounded-md text-[11px]">
+                      {s}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-slate-500">No skills added yet</span>
+                )}
               </div>
-            ) : (
-              <p className="text-sm text-slate-400">
-                No skills added yet. Go to your profile to add skills.
-              </p>
-            )}
+            </div>
           </div>
         </div>
       )}

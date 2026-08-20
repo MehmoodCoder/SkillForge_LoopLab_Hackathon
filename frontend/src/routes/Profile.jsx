@@ -19,12 +19,19 @@ export default function Profile({ user, setUser }) {
   const [certifications, setCertifications] = useState([]);
   const [newCert, setNewCert] = useState('');
 
+const userId = user?.id || user?._id;
+
   // Fetch Current User Profile
   useEffect(() => {
-    if (!user) return;
+    console.log('Fetching profile for user:', userId);
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
+    
     const fetchProfile = async () => {
       try {
-        const res = await API.get(`/profile/${user.id}`);
+        const res = await API.get(`/profile/${userId}`);
         const data = res.data;
         if (data) {
           setSkills(data.skills || []);
@@ -41,7 +48,7 @@ export default function Profile({ user, setUser }) {
       }
     };
     fetchProfile();
-  }, [user]);
+  }, [userId]);
 
   // Handlers
   const handleAddSkill = () => {
@@ -71,7 +78,7 @@ export default function Profile({ user, setUser }) {
     setMessage({ type: '', text: '' });
 
     try {
-      await API.put(`/profile/${user.id}`, {
+      await API.put(`/profile/${userId}`, {
         skills,
         education,
         experienceLevel,
@@ -98,7 +105,7 @@ export default function Profile({ user, setUser }) {
   const handleDeleteAccount = async () => {
     if (window.confirm('Are you absolutely sure? This action is permanent and will delete all your data.')) {
       try {
-        await API.delete(`/profile/${user.id}`);
+        await API.delete(`/profile/${userId}`);
         setUser(null);
         navigate('/register');
       } catch (err) {

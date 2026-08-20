@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import User from '../models/UserModel.js';
 import Profile from '../models/ProfileModel.js';
 
-// Register User
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
@@ -23,7 +22,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Login User & Set HTTP-Only Cookie
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -40,12 +38,11 @@ export const loginUser = async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || '1d' }
     );
 
-    // Cookie Configuration (Secure)
     res.cookie('token', token, {
-      httpOnly: true, // Prevents XSS attacks
+      httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60 * 1000 // 1 day
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000
     });
 
     res.json({
@@ -57,7 +54,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Logout User
 export const logoutUser = (req, res) => {
   res.cookie('token', '', { httpOnly: true, expires: new Date(0) });
   res.json({ message: 'Logged out successfully' });

@@ -9,22 +9,25 @@ import Profile from './routes/Profile.jsx';
 import Navbar from './components/Navbar.jsx';
 
 export default function App() {
+  
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const res = await API.get('/auth/me');
-        setUser(res.data.user);
-      } catch (err) {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchUser = async () => {
+    try {
+      const res = await API.get('/auth/me');
+      setUser(res.data.user);
+    } catch (err) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    checkAuthStatus();
+  useEffect(() => {
+    console.log("dfghjk",user);
+    
+    fetchUser();
   }, []);
 
   if (loading) {
@@ -47,7 +50,13 @@ export default function App() {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route 
             path="/profile" 
-            element={user ? <Profile user={user} setUser={setUser} /> : <Navigate to="/login" replace />} 
+            element={
+              user ? (
+                <Profile user={user} setUser={setUser} refreshUser={fetchUser} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            } 
           />
           <Route 
             path="/students" 
