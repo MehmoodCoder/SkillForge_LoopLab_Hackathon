@@ -17,7 +17,7 @@ from app.services.skill_engine import (
     CareerRoadmap,
     SkillAnalyzer,
     RAGKnowledgeBase,
-    CareerPlanning AGENT 
+    CareerPlanningAgent  # Corrected Import Name
 )
 
 app = FastAPI(
@@ -46,6 +46,9 @@ class AssessmentSubmitRequest(BaseModel):
     web_score: int
     git_score: int
 
+class RAGQueryRequest(BaseModel):
+    query: str
+
 @app.post("/api/v1/auth/login")
 def login(data: AuthRequest):
     user = db.users.get(data.email)
@@ -62,7 +65,7 @@ def create_or_update_profile(
     profile: StudentProfile,
     user: TokenData = Depends(RoleChecker(["Student"]))
 ):
-    db.profiles[user.user_id] = profile.dict()
+    db.profiles[user.user_id] = profile.model_dump()
     return profile
 
 @app.post("/api/v1/student/assessment")
@@ -100,11 +103,11 @@ def generate_roadmap(
 
 @app.post("/api/v1/ai/rag-assistant")
 def ask_rag_assistant(
-    query: str,
+    request: RAGQueryRequest,
     user: TokenData = Depends(RoleChecker(["Student", "Mentor", "Admin"]))
 ):
     return {
-        "query": query,
+        "query": request.query,
         "response": f"RAG Grounded Response: To master your target domain, start by addressing your key skill gaps and building practical portfolio projects.",
         "sources": ["SkillForge Resource Library", "Looplearn Tech Standards 2026"]
     }
