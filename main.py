@@ -121,7 +121,7 @@ def ask_rag_assistant(request: RAGQueryRequest):
     if genai_engine.client:
         try:
             response = genai_engine.client.models.generate_content(
-                model="gemini-3.6-flash",  # Yahan model name update kar diya hai
+                model="gemini-3.6-flash",  
                 contents=request.query,
             )
             ai_text = response.text
