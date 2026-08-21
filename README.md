@@ -6,6 +6,16 @@
 
 ---
 
+## 🛠️ Tech Stack
+
+* **Frontend:** React.js, React Router DOM, Axios, TailwindCSS, Vite
+* **Backend:** Node.js, Express.js, CORS, Dotenv, Nodemon, Python Fast API, LangChain, ngrok
+* **Database:** MongoDB Atlas (Mongoose ODM)
+* **Deployment:** Vercel (Frontend & Serverless Functions)
+* **Version Control:** Git, GitHub
+
+---
+
 ## ✨ Features
 
 - 🏛️ **Monorepo / Multi-Project Ecosystem** – Centralized repository housing scalable MERN modules, CRUD applications, and expanding backend services.
