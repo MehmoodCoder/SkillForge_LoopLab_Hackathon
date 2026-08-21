@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -17,7 +22,8 @@ from app.services.skill_engine import (
     CareerRoadmap,
     SkillAnalyzer,
     RAGKnowledgeBase,
-    CareerPlanningAgent  # Corrected Import Name
+    CareerPlanningAgent,
+    genai_engine
 )
 
 app = FastAPI(
@@ -51,7 +57,7 @@ class RAGQueryRequest(BaseModel):
 
 @app.post("/api/v1/auth/login")
 def login(data: AuthRequest):
-    user = db.users.get(data.email)
+    user = db.users.find_one({"email": data.email})
     if not user or not verify_password(data.password, user["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -65,7 +71,11 @@ def create_or_update_profile(
     profile: StudentProfile,
     user: TokenData = Depends(RoleChecker(["Student"]))
 ):
-    db.profiles[user.user_id] = profile.model_dump()
+    db.profiles.update_one(
+        {"student_id": user.user_id},
+        {"$set": profile.model_dump()},
+        upsert=True
+    )
     return profile
 
 @app.post("/api/v1/student/assessment")
@@ -83,7 +93,12 @@ def submit_assessment(
         "max_score": max_score,
         "percentage": percentage
     }
-    db.assessments[user.user_id] = result
+    
+    db.assessments.update_one(
+        {"student_id": user.user_id},
+        {"$set": result},
+        upsert=True
+    )
     return result
 
 @app.post("/api/v1/student/analyze-skills", response_model=SkillGapAnalysis)
@@ -102,22 +117,32 @@ def generate_roadmap(
     return career_agent.run_agent_workflow(profile)
 
 @app.post("/api/v1/ai/rag-assistant")
-def ask_rag_assistant(
-    request: RAGQueryRequest,
-    user: TokenData = Depends(RoleChecker(["Student", "Mentor", "Admin"]))
-):
+def ask_rag_assistant(request: RAGQueryRequest):
+    if genai_engine.client:
+        try:
+            response = genai_engine.client.models.generate_content(
+                model="gemini-3.6-flash",  
+                contents=request.query,
+            )
+            ai_text = response.text
+        except Exception as e:
+            ai_text = f"AI Error: {str(e)}"
+    else:
+        ai_text = "Gemini API key is not configured in the backend environment."
+
     return {
         "query": request.query,
-        "response": f"RAG Grounded Response: To master your target domain, start by addressing your key skill gaps and building practical portfolio projects.",
-        "sources": ["SkillForge Resource Library", "Looplearn Tech Standards 2026"]
+        "response": ai_text,
+        "sources": ["SkillForge Knowledge Base", "Google GenAI"]
     }
 
 @app.get("/api/v1/mentor/students")
 def get_all_student_profiles(user: TokenData = Depends(RoleChecker(["Mentor", "Admin"]))):
-    return {"profiles": list(db.profiles.values())}
+    all_profiles = list(db.profiles.find({}, {"_id": 0}))
+    return {"profiles": all_profiles}
 
 @app.get("/health")
-def health_check():
+def health_code():
     return {"status": "ok", "service": "SkillForge Engine"}
 
 @app.get("/")
