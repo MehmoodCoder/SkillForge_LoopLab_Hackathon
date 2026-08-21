@@ -192,8 +192,6 @@ Or add to an existing Vite project:
 npm install react-router-dom
 ```
 
-
-
 ---
 
 ## 👤 Author
