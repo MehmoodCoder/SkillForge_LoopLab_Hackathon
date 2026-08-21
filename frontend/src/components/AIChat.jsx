@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import API from '../api/axios'; // Ensure path theek hai
+import { askAIAssistant } from '../services/aiService';
 
 export default function AIChat() {
   const [prompt, setPrompt] = useState('');
@@ -7,7 +7,6 @@ export default function AIChat() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // ❌ Yahan se 'export' hata diya hai. Ye sirf 'const' se shuru hoga.
   const handleSend = async (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
@@ -17,14 +16,11 @@ export default function AIChat() {
     setResponse('');
 
     try {
-      const res = await API.post('/ai/rag-assistant', { 
-        query: prompt 
-      });
-
-      setResponse(res.data?.response || JSON.stringify(res.data));
+      const data = await askAIAssistant(prompt);
+      setResponse(data?.response || JSON.stringify(data));
     } catch (err) {
       console.error('AI Error:', err);
-      setError(err.response?.data?.message || 'AI request fail ho gayi!');
+      setError(err.response?.data?.detail || err.message || 'AI request fail ho gayi!');
     } finally {
       setLoading(false);
     }
