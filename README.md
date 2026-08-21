@@ -93,6 +93,80 @@ Project_Folder/
 
 ---
 
+## 📂 Project Directory Structure
+
+**Generated:** 8/21/2026, 9:23:45 PM
+**Root Path:** `workspace\SkillForge_LoopLab_Hackathon`
+
+```
+├── 📁 app
+│   ├── 📁 core
+│   │   ├── 🐍 __init__.py
+│   │   ├── 🐍 config.py
+│   │   └── 🐍 security.py
+│   ├── 📁 db
+│   │   ├── 🐍 __init__.py
+│   │   └── 🐍 database.py
+│   ├── 📁 services
+│   │   ├── 🐍 __init__.py
+│   │   └── 🐍 skill_engine.py
+│   └── 🐍 __init__.py
+├── 📁 backend
+│   ├── 📁 config
+│   │   └── 📄 db.js
+│   ├── 📁 controllers
+│   │   ├── 📄 authController.js
+│   │   └── 📄 profileController.js
+│   ├── 📁 middleware
+│   │   └── 📄 authMiddleware.js
+│   ├── 📁 models
+│   │   ├── 📄 ProfileModel.js
+│   │   └── 📄 UserModel.js
+│   ├── 📁 routes
+│   │   ├── 📄 authRoutes.js
+│   │   └── 📄 profileRoutes.js
+│   ├── ⚙️ package-lock.json
+│   ├── ⚙️ package.json
+│   └── 📄 server.js
+├── 📁 docs
+│   └── 📄 SkillForge_Project_Presentation_Updated.pptx
+├── 📁 frontend
+│   ├── 📁 public
+│   │   ├── 🖼️ favicon.svg
+│   │   └── 🖼️ icons.svg
+│   ├── 📁 src
+│   │   ├── 📁 api
+│   │   │   └── 📄 axios.js
+│   │   ├── 📁 components
+│   │   │   ├── 📄 AIChat.jsx
+│   │   │   └── 📄 Navbar.jsx
+│   │   ├── 📁 routes
+│   │   │   ├── 📄 Home.jsx
+│   │   │   ├── 📄 Login.jsx
+│   │   │   ├── 📄 Profile.jsx
+│   │   │   ├── 📄 Register.jsx
+│   │   │   └── 📄 StudentList.jsx
+│   │   ├── 📁 services
+│   │   │   └── 📄 aiService.js
+│   │   ├── 📄 App.jsx
+│   │   ├── 🎨 index.css
+│   │   └── 📄 main.jsx
+│   ├── ⚙️ .gitignore
+│   ├── 📝 README.md
+│   ├── 📄 eslint.config.js
+│   ├── 🌐 index.html
+│   ├── ⚙️ package-lock.json
+│   ├── ⚙️ package.json
+│   └── 📄 vite.config.js
+├── ⚙️ .gitignore
+├── 📝 README.md
+├── 🐍 main.py
+├── 🐍 test_ai.py
+└── ⚙️ vercel.json
+```
+
+---
+
 # 📦 MERN Stack: Frontend Architecture Setup Guide
 
 This documentation provides a step-by-step guide to setting up a production-ready **Frontend Workspace** for a MERN stack application using **React + Vite**. It covers project initialization, dependency configuration, and local setup—preparing the UI layer to seamlessly connect with an Express/Node.js backend.
