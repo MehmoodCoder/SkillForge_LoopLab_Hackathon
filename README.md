@@ -109,7 +109,7 @@ npm run dev
 Run this command inside your project directory to install npm pakages in pakages.json file:
 
 ```bash
-npm i @clerk/react
+npm i axios
 npm i react-router-dom
 npm i @tailwindcss/vite
 ```
@@ -118,7 +118,7 @@ npm i @tailwindcss/vite
 
 ```json
 {
-  "name": "client",
+  "name": "frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -129,8 +129,8 @@ npm i @tailwindcss/vite
     "preview": "vite preview"
   },
   "dependencies": {
-    "@clerk/react": "^6.14.3",
     "@tailwindcss/vite": "^4.3.3",
+    "axios": "^1.19.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.2",
@@ -192,7 +192,7 @@ Or add to an existing Vite project:
 npm install react-router-dom
 ```
 
-### Will add guide how to install and configure clerk
+
 
 ---
 
