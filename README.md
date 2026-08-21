@@ -2,6 +2,42 @@
 
 ✨ Full-stack AI-powered Skill & Career Development Platform! 🎓 Analyze skill gaps, generate AI career roadmaps, and assess technical competencies. Powered by FastAPI, MongoDB, Google GenAI (Gemini), React & Tailwind CSS. Features JWT authentication, role-based access control (Student, Mentor, Admin), and RAG-assisted career guidance! ⚡
 
+> An advanced, full-stack, AI-powered skill and career development platform integrating modern web architectures, a Node.js management layer, and a Python FastAPI AI engine.
+
+---
+
+## ✨ Features
+
+- 🏛️ **Monorepo / Multi-Project Ecosystem** – Centralized repository housing scalable MERN modules, CRUD applications, and expanding backend services.
+- 🏗️ **Full-Stack MERN Architecture** – End-to-end integration connecting decoupled React single-page applications with Node.js & Express RESTful APIs.
+- ⚡ **Axios API Integration** – Asynchronous client-side HTTP request handling utilizing normalized paths for real-time frontend-backend communication.
+- 🔄 **Real-Time CRUD Operations** – Instant UI updates and client state re-rendering on User Creation, Retrieval, Updates, and Deletions.
+- 🗄️ **MongoDB & Mongoose Schema Design** – Structured document schemas, explicit data validation, and persistent cloud data management via MongoDB Atlas.
+- 🌐 **Dynamic Client-Side Routing** – Multi-view navigation and parameter matching managed via React Router DOM.
+- 🎨 **Responsive UI Layer** – Dynamic dark-themed views, adaptive table layouts, and interactive forms styled with modern UI design principles.
+- 🚀 **Production-Ready Serverless Deployment** – Cloud deployment configurations utilizing custom `vercel.json` rewrites and serverless function entry points.
+- ⚙️ **Centralized Environment Vault** – Secure handling of environment configurations (`MONGO_URI`, `GEMINI_API_KEY`, `SECRET_KEY`) via `.env` integration across modules.
+- ⚡ **Optimized Developer Workflow** – Rapid frontend development powered by Vite combined with backend hot-reloading tooling.
+
+---
+
+## 🛠️ Tech Stack & Dependencies
+
+| Tool / Library | Type | Purpose |
+| :--- | :--- | :--- |
+| **Node.js** | Runtime | Server-side JavaScript execution environment |
+| **Express.js** | Backend Framework | Web framework for handling RESTful API routes & HTTP requests |
+| **Python / FastAPI** | AI & Core Engine | High-performance Python backend for AI and RAG processing |
+| **React.js** | Frontend Library | Declarative UI library for building component-based client views |
+| **MongoDB Atlas** | Database | Cloud-hosted NoSQL document database for user data storage |
+| **Mongoose** | Backend ODM | Schema-based data modeling and async queries for MongoDB |
+| **Axios** | Frontend HTTP Client | Promise-based client for sending HTTP requests to backend endpoints |
+| **React Router DOM** | Client Routing | Declarative routing for single-page dynamic view navigation |
+| **Vite** | Frontend Tooling | High-performance build tool and hot-reloading dev server |
+| **dotenv** | Utility | Loads environment variables from `.env` file into configuration space |
+| **CORS** | Backend Middleware | Enables cross-origin resource sharing between React and backend services |
+| **Vercel** | Hosting / Serverless | Platform for deploying frontend SPA and serverless backend API functions |
+
 ---
 
 ## Prerequisites
