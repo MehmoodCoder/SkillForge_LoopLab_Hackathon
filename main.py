@@ -147,4 +147,4 @@ def health_code():
 
 @app.get("/")
 def read_root():
-    return {"message": "SkillForge API is running! Visit /docs for Interactive API Documentation."}
+    return {"message": "SkillForge API is running successfully!"}
