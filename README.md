@@ -451,6 +451,14 @@ npm i bcryptjs
 
 ---
 
+### Run the FastAPI AI Engine:
+
+```bash
+python -m uvicorn main:app --reload
+```
+
+---
+
 ## 💡 Core Concepts 
 
 - ✅ **MERN Stack Architecture** – Integrating a React SPA frontend with a Node.js & Express RESTful API backend
