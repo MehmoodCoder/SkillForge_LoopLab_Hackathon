@@ -1,0 +1,33 @@
+{
+  "name": "skillforge_looplab_hackathon",
+  "version": "1.0.0",
+  "description": "🎯 SkillForge — AI-powered career roadmap &amp; skill assessment platform for LoopLab LoopLearn Hackathon 2026 🚀 Aligned with UN SDGs 4, 8, 9 &amp; 10 🌍 Built with MERN, Python microservices, RAG, Agentic AI, Docker &amp; K8s.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MehmoodCoder/SkillForge_LoopLab_Hackathon.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/MehmoodCoder/SkillForge_LoopLab_Hackathon/issues"
+  },
+  "homepage": "https://github.com/MehmoodCoder/SkillForge_LoopLab_Hackathon#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.6.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.9.3",
+    "nodemon": "^3.1.14",
+    "zod": "^4.4.3"
+  }
+}
