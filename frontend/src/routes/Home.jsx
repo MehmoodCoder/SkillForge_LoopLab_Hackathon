@@ -83,7 +83,7 @@ export default function Home({ user }) {
         </div>
       )}
 
-      <AIChat />
+      {user && <AIChat />}
     </div>
   );
 }
