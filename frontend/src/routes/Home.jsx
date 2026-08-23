@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import API from '../api/axios.js';
-import AIChat from '../components/AIChat'; // Agar AIChat components folder mein hai
+import AIChat from '../components/AIChat';
 
 export default function Home({ user }) {
     console.log("Home.jsx user:", user);
