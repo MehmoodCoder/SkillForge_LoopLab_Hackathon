@@ -8,7 +8,7 @@ export const nodeAPI = axios.create({
 
 // 2. Python FastAPI AI Engine (Updated Ngrok URL)
 export const pythonAPI = axios.create({
-  baseURL: import.meta.env.VITE_PYTHON_API_URL || 'https://single-subdivide-kilogram.ngrok-free.dev/api/v1',
+  baseURL: import.meta.env.VITE_PYTHON_API_URL,
   withCredentials: true,
 });
 
